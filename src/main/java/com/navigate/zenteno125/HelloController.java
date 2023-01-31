@@ -82,13 +82,15 @@ public class HelloController implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (o instanceof Rock){
+        if (o instanceof Rock) {
             Position pos = (Position) arg;
             Platform.runLater(() -> rock.setLayoutY(pos.getPosY()));
-        }else{
+        } else {
             Rocket rocket = (Rocket) arg;
         }
-
+        if (rock.getBoundsInParent().intersects(entitieRocket.getBoundsInParent())) {
+            System.exit(1);
+        }
     }
 }
 
