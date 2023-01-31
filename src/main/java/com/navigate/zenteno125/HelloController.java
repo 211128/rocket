@@ -80,12 +80,26 @@ public class HelloController implements Observer {
     }
 
 
+
+
+
+
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof Rock) {
+
             Position pos = (Position) arg;
             Platform.runLater(() -> rock.setLayoutY(pos.getPosY()));
-        } else {
+
+            if (pos.getPosY() >= 530){
+                roca.setStatus(false);
+                roca = new Rock();
+                roca.setPos(new Position(1, 171, 14));
+                roca.addObserver(this);
+                new Thread(roca).start();
+            }
+        }
+        else {
             Rocket rocket = (Rocket) arg;
         }
         if (rock.getBoundsInParent().intersects(entitieRocket.getBoundsInParent())) {

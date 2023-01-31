@@ -9,6 +9,8 @@ public class Rock extends Observable implements Runnable{
 
     private Position pos;
 
+    private Random random;
+
     public Position getPos() {
         return pos;
     }
@@ -23,12 +25,15 @@ public class Rock extends Observable implements Runnable{
         return status;
     }
 
+    public Rock() {
+        random = new Random(System.currentTimeMillis());
+    }
+
     public void setStatus(boolean status) {
         this.status = status;
     }
 
     private int size;
-    private Random random;
     private String path = "";
     private boolean status = true;
 
@@ -46,7 +51,9 @@ public class Rock extends Observable implements Runnable{
             setChanged();
             notifyObservers(pos );
             try {
+
                 Thread.sleep(50L);
+
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
